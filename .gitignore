@@ -55,7 +55,8 @@ sysinfo.txt
 *.apk
 *.unitypackage
 Builds
-Assets/Marbles
+Assets/Marbles/MarbleSkins
+Assets/Marbles/MarbleData/*.prefab*
 
 # Crashlytics generated file
 crashlytics-build.properties
