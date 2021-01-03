@@ -58,7 +58,7 @@ public class MarbleObject : MonoBehaviour
     public void LongJump()
     {
         //How far player jumps
-        int percentage = UnityEngine.Random.Range(0, 10000);
+        int percentage = UnityEngine.Random.Range(0, 10001);
         if (percentage == 10000)
         {
             commands = FindObjectOfType<Commands>();
