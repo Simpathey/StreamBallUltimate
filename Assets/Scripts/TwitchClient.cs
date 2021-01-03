@@ -32,7 +32,7 @@ public class TwitchClient : MonoBehaviour
         Application.runInBackground = true;
 
         //set up bot and tell what channel to join
-        ConnectionCredentials credentials = new ConnectionCredentials("simpagamebot", Secrets.bot_access_token);
+        ConnectionCredentials credentials = new ConnectionCredentials(bot_name, Secrets.bot_access_token);
         client = new Client();
         client.Initialize(credentials, channel_name);
         //pubSub = new PubSub();
@@ -103,41 +103,34 @@ public class TwitchClient : MonoBehaviour
         {
             return whisper;
         }
-        else
-        {
 
-                whisper = whisper.Substring(1);
-                string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                return (commandArray[0].ToLower());
-
-        }
+        whisper = whisper.Substring(1);
+        string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        return (commandArray[0].ToLower());
     }
     
     private string ConvertWhisperToArguments(string whisper)
     {
-        string commands = ""; 
         if (string.IsNullOrEmpty(whisper))
         {
             return whisper;
         }
-        else
-        {
 
-                whisper = whisper.Substring(1);
-                string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                Debug.Log(commandArray[0]);
-                if (commandArray.Length > 1)
-                {
-                    for (int i = 1; i < commandArray.Length; i++)
-                    {
-                        commands += commandArray[i];
-                    }
-                }
-                commands = commands.ToLower();
-                return (commands);
-            
+        string commands = ""; 
+        whisper = whisper.Substring(1);
+        string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        Debug.Log(commandArray[0]);
+        for (int i = 1; i < commandArray.Length; i++)
+        {
+            // nit: building a string by adding them together in a for loop is inefficient
+            // It's probably not a problem in this case, but a better solution is to use String.Join
+            // https://docs.microsoft.com/en-us/dotnet/api/system.string.join?view=net-5.0
+            commands += commandArray[i];
         }
+        commands = commands.ToLower();
+        return (commands);
     }
+
     private List<string> ParseCommand(string command)
     {
         List<string> list = new List<string>();
