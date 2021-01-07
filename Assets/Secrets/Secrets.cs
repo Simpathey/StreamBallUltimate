@@ -38,6 +38,10 @@ public static class Secrets
    */
     }
     
+    /// <summary>Gets the environment variable at any target level.</summary>
+    /// <remarks>Attempts to get the environment variable in the order process-wide, user-wide, and finally machine-wide.</remarks>
+    /// <param name="name">The name of the environment variable</param>
+    /// <returns>Returns the value of environment variable or null if not found at any level</returns>
     public static string GetVariable(string name)
     {
         return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process) ??
