@@ -11,10 +11,10 @@ public static class Secrets
     public static string bot_refresh_token; //hai
     public static void EnvironmentVariables()
     {
-        client_id = Environment.GetEnvironmentVariable("client_id");
-        client_secret = Environment.GetEnvironmentVariable("client_secret");
-        bot_access_token = Environment.GetEnvironmentVariable("bot_access_token");
-        bot_refresh_token = Environment.GetEnvironmentVariable("bot_refresh_token");
+        client_id = GetVariable("client_id");
+        client_secret = GetVariable("client_secret");
+        bot_access_token = GetVariable("bot_access_token");
+        bot_refresh_token = GetVariable("bot_refresh_token");
         /*
         string value;
         bool toDelete = false;
@@ -36,5 +36,12 @@ public static class Secrets
             bot_access_token = Environment.GetEnvironmentVariable("bot_access_token");
             bot_refresh_token = Environment.GetEnvironmentVariable("bot_refresh_token");
    */
+    }
+    
+    public static string GetVariable(string name)
+    {
+        return Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Process) ??
+               Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.User) ??
+               Environment.GetEnvironmentVariable(name, EnvironmentVariableTarget.Machine);
     }
 }
