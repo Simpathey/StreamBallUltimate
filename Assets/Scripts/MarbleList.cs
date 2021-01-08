@@ -8,7 +8,7 @@ public class MarbleList : MonoBehaviour
     [SerializeField] int maxCommon = 100;
     [SerializeField] int maxRare = 400;
     [SerializeField] int maxEpic = 1000;
-    [SerializeField] int maxLegendary = 2000; 
+    [SerializeField] int maxLegendary = 2000;
 
     public List<bool> marbleArraySetToFalse = new List<bool>();
     //Every string needs to be the unique code for the marble
@@ -52,7 +52,7 @@ public class MarbleList : MonoBehaviour
         marbleArraySetToFalse[0] = true;
     }
 
-    public List<bool> getEmptyAllMarbleDictionary() 
+    public List<bool> getEmptyAllMarbleDictionary()
     {
         return marbleArraySetToFalse;
     }
@@ -88,11 +88,11 @@ public class MarbleList : MonoBehaviour
 
     public int GetMarbleCostFromCommonName(string commonName)
     {
-            int code = marbleCommonNameToMarbleCode[commonName];
-            int cost = marbleCodeToCost[code];
-            return cost;
+        int code = marbleCommonNameToMarbleCode[commonName];
+        int cost = marbleCodeToCost[code];
+        return cost;
     }
-    
+
     public int GetMarbleCodeFromCommonName(string commonName)
     {
         int code = marbleCommonNameToMarbleCode[commonName];
@@ -107,7 +107,7 @@ public class MarbleList : MonoBehaviour
     {
         return marbles[ballCode];
     }
-    
+
     public int setMarbleCostsBasedOnRarity(int rarity)
     {
         //At the start of the game session all the marble costs will be randomized 
@@ -132,10 +132,11 @@ public class MarbleList : MonoBehaviour
     {
         int marbleLength = marbles.Length;
         HashSet<GameObject> returnedMarbles = new HashSet<GameObject>();
-        do { 
+        do
+        {
             int marbleCode = Random.Range(0, marbleLength);
             returnedMarbles.Add(marbles[marbleCode]);
-        } while (returnedMarbles.Count<howManyMarbles);
+        } while (returnedMarbles.Count < howManyMarbles);
         foreach (var item in returnedMarbles)
         {
             Debug.Log(item.GetComponent<Marble>().commonName);

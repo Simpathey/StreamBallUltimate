@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TwitchLib.Client.Models;
-using TwitchLib.Unity;
 using TwitchLib.Client.Events;
-using System;
+using TwitchLib.Client.Models;
 using TwitchLib.PubSub.Events;
+using TwitchLib.Unity;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TwitchClient : MonoBehaviour
@@ -44,7 +44,7 @@ public class TwitchClient : MonoBehaviour
         client.OnChatCommandReceived += MyCommandReceivedFunction;
         client.OnWhisperSent += Client_OnWhisperSent;
         client.OnWhisperReceived += Client_OnWhisperReceived;
-        
+
         //pubSub.OnChannelCommerceReceived += Pubsub_OnCommerceReceived;
 
         //client.On will fill in with telesence
@@ -72,7 +72,7 @@ public class TwitchClient : MonoBehaviour
         chatArgs.displayName = e.Command.ChatMessage.DisplayName;
         chatArgs.commandText = e.Command.CommandText.ToLower();
         chatArgs.multiCommand = e.Command.ArgumentsAsList;
-        
+
         for (int index = 0; index < e.Command.ArgumentsAsList.Count; index++)
         {
             chatArgs.commandArgs += e.Command.ArgumentsAsList[index].ToLower();
@@ -106,16 +106,16 @@ public class TwitchClient : MonoBehaviour
         else
         {
 
-                whisper = whisper.Substring(1);
-                string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                return (commandArray[0].ToLower());
+            whisper = whisper.Substring(1);
+            string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return (commandArray[0].ToLower());
 
         }
     }
-    
+
     private string ConvertWhisperToArguments(string whisper)
     {
-        string commands = ""; 
+        string commands = "";
         if (string.IsNullOrEmpty(whisper))
         {
             return whisper;
@@ -123,19 +123,19 @@ public class TwitchClient : MonoBehaviour
         else
         {
 
-                whisper = whisper.Substring(1);
-                string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                Debug.Log(commandArray[0]);
-                if (commandArray.Length > 1)
+            whisper = whisper.Substring(1);
+            string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            Debug.Log(commandArray[0]);
+            if (commandArray.Length > 1)
+            {
+                for (int i = 1; i < commandArray.Length; i++)
                 {
-                    for (int i = 1; i < commandArray.Length; i++)
-                    {
-                        commands += commandArray[i];
-                    }
+                    commands += commandArray[i];
                 }
-                commands = commands.ToLower();
-                return (commands);
-            
+            }
+            commands = commands.ToLower();
+            return (commands);
+
         }
     }
     private List<string> ParseCommand(string command)

@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using TwitchLib.Api.Models.Undocumented.Chatters;
 using TwitchLib.Client.Models;
 using TwitchLib.Unity;
-using TwitchLib.Api.Models.Undocumented.Chatters;
-using System;
+using UnityEngine;
 
 public class TwitchAPI : MonoBehaviour
 {
@@ -40,7 +40,7 @@ public class TwitchAPI : MonoBehaviour
         Debug.Log("List of " + listOfChatters.Count + "Viewers: ");
         foreach (var chatterObject in listOfChatters)
         {
-           // Debug.Log(chatterObject.Username);
+            // Debug.Log(chatterObject.Username);
         }
     }
 }

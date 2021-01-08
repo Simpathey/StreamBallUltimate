@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class Timer : MonoBehaviour
 {
@@ -36,7 +36,7 @@ public class Timer : MonoBehaviour
                     gameController.TriggerCutscene();
                     wasGameTime = false;
                 }
-                else 
+                else
                 {
                     gameController.TriggerDowntime();
                     wasGameTime = true;

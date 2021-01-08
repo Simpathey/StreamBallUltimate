@@ -56,28 +56,28 @@ public class CommandQueue : MonoBehaviour
 
         }
     }
-   
+
 
     //This Seperates the different commands into buckets
     public void FirstCommandBuckets(Arrrgs e)
     {
         string firstCommand = e.commandText; //Command.CommandText.ToLower();
         //These commands will provide player confirmation/Response in CHAT
-        if (firstCommand == "buy")     { AddToChatQueue(e); }
-        else if (firstCommand == "join")     { AddToChatQueue(e); }
-        else if (firstCommand == "equip")   { AddToChatQueue(e); }
+        if (firstCommand == "buy") { AddToChatQueue(e); }
+        else if (firstCommand == "join") { AddToChatQueue(e); }
+        else if (firstCommand == "equip") { AddToChatQueue(e); }
         else if (firstCommand == "money") { AddToChatQueue(e); }
         else if (firstCommand == "inuse") { AddToChatQueue(e); }
         else if (firstCommand == "skins") { AddToChatQueue(e); }
         else if (firstCommand == "give") { AddToChatQueue(e); }
 
         //These commands will provide player with visial confirmation in overlay
-        else if  (firstCommand == "play") { commands.Play(e); }
+        else if (firstCommand == "play") { commands.Play(e); }
         else if (firstCommand == "rotate") { commands.Rotate(e); } //TEMPORARY CHAT COMMAND TO ROTATE SHOP
         //These commands will provide player with whisper confirmation 
         else if (firstCommand == "help") { AddToChatQueue(e); }
-        else if (firstCommand == "vfx")     { }
-        else if (firstCommand == "sfx")     { }
+        else if (firstCommand == "vfx") { }
+        else if (firstCommand == "sfx") { }
 
         else { return; }
     }

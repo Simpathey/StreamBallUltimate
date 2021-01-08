@@ -1,8 +1,8 @@
-﻿using System.Collections; // Don't eat TheBookSnail or you might get rat lungworm :0
+﻿using Newtonsoft.Json;
+using System.Collections; // Don't eat TheBookSnail or you might get rat lungworm :0
 using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
 using TMPro;
+using UnityEngine;
 
 public enum gameState { downtime, cutscene, gametime };
 public enum gameMode { longjump, highjump, race };

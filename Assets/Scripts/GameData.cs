@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
+using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Unity;
-using TwitchLib.Client.Events;
+using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
@@ -46,7 +46,7 @@ public class GameData : MonoBehaviour
     public bool CheckIfPlayerExists(string playerID)
     {
 
-        if (gameData.ContainsKey(playerID) )
+        if (gameData.ContainsKey(playerID))
         {
             return true;
         }
@@ -125,7 +125,7 @@ public class GameData : MonoBehaviour
     {
         string playerID = e.userID;
         string playerName = e.displayName;
-        string skinList = playerName+": ";
+        string skinList = playerName + ": ";
         for (int i = 0; i < gameData[playerID].skins.Count; i++)
         {
             if (gameData[playerID].skins[i] == true)
@@ -141,7 +141,7 @@ public class GameData : MonoBehaviour
         playerDataList = new List<PlayerData>(gameData.Values);
         for (int i = 0; i < playerDataList.Count; i++)
         {
-            if (playerDataList[i].playerName.Equals(commonName,System.StringComparison.CurrentCultureIgnoreCase))
+            if (playerDataList[i].playerName.Equals(commonName, System.StringComparison.CurrentCultureIgnoreCase))
             {
                 gameDataKeyList = new List<string>(gameData.Keys);
                 return gameDataKeyList[i];

@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using TwitchLib.Client.Events;
 using TwitchLib.Client.Models;
 using TwitchLib.Unity;
-using TwitchLib.Client.Events;
-using System;
+using UnityEngine;
 
 public class Commands : MonoBehaviour
 {
@@ -82,7 +82,7 @@ public class Commands : MonoBehaviour
     }
 
     //Join - check if player data exists - if not create empty player data entry
-    public void Join (Arrrgs e)
+    public void Join(Arrrgs e)
     {
         if (chatClient == null)
         {
@@ -241,8 +241,8 @@ public class Commands : MonoBehaviour
                 if (gameDataScript.IsSkinUnlocked(playerID, marbleCode))
                 {
                     gameDataScript.SetPlayerEquipSkin(playerID, marbleCode);
-                    chatClient.SendMessage(chatJoinedChannel, playerUserName + ", you now have the " + commonName +" skin in use.");
-                    Debug.Log(playerUserName+" equipt "+commonName );
+                    chatClient.SendMessage(chatJoinedChannel, playerUserName + ", you now have the " + commonName + " skin in use.");
+                    Debug.Log(playerUserName + " equipt " + commonName);
                 }
                 else
                 {
@@ -403,7 +403,7 @@ public class Commands : MonoBehaviour
     }
     public void AkaiEasterEgg(string name)
     {
-        chatClient.SendMessage(chatJoinedChannel,name + secretMsg);
+        chatClient.SendMessage(chatJoinedChannel, name + secretMsg);
     }
 
     public void Rotate(Arrrgs e) //Temporary command!!! TODO REMOVE
@@ -453,15 +453,15 @@ public class Commands : MonoBehaviour
                                 int currentMoney = gameDataScript.CheckPlayerMoney(userID);
                                 if (currentMoney >= cost)
                                 {
-                                    if (cost > 0 && cost<=10000)
+                                    if (cost > 0 && cost <= 10000)
                                     {
                                         gameDataScript.SubtractMoneyFromPlayerID(cost, userID);
                                         gameDataScript.AddMoneyToPlayerID(cost, PersonGettingMoney);
-                                        chatClient.SendMessage(chatJoinedChannel, displayName+ " gave " + e.multiCommand[0] +" "+cost);
+                                        chatClient.SendMessage(chatJoinedChannel, displayName + " gave " + e.multiCommand[0] + " " + cost);
                                     }
                                     else
                                     {
-                                        chatClient.SendMessage(chatJoinedChannel, displayName+" you can only give give between 1 and 10000");
+                                        chatClient.SendMessage(chatJoinedChannel, displayName + " you can only give give between 1 and 10000");
                                     }
                                 }
                                 else
@@ -478,7 +478,7 @@ public class Commands : MonoBehaviour
                 }
                 else
                 {
-                    chatClient.SendMessage(chatJoinedChannel, displayName+ " to give use !give [PlayerName] [Amount]");
+                    chatClient.SendMessage(chatJoinedChannel, displayName + " to give use !give [PlayerName] [Amount]");
                 }
             }
             else

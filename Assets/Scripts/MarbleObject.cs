@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
-using System;
+using UnityEngine;
 
 public class MarbleObject : MonoBehaviour
 {
@@ -10,14 +10,14 @@ public class MarbleObject : MonoBehaviour
     //Ball needs to be tied to a player chat ID
     //Can only have one marble per player, should not instantiate if player has ball in play
 
-   //FOR EVENTS:  -go to appropriate starting location 
-   //                    -give instructions on where to go (should have random factor)
-   //                    -Despawn Object
+    //FOR EVENTS:  -go to appropriate starting location 
+    //                    -give instructions on where to go (should have random factor)
+    //                    -Despawn Object
     float longJumpForce;
     [SerializeField] float highJumpForce = 1.0f;
     Rigidbody2D rb;
-    public string playerID; 
-    public SpriteRenderer gameMarbleSprite; 
+    public string playerID;
+    public SpriteRenderer gameMarbleSprite;
     public TextMeshPro playerName;
     float speed;
     GameData gameData;
@@ -73,7 +73,7 @@ public class MarbleObject : MonoBehaviour
         longJumpForce = range;
         //transform.position = new Vector3(-13.5f, -4.828952f, 0f);
         rb.AddForce(new Vector2(longJumpForce, 0), ForceMode2D.Impulse);
-        StartCoroutine(WaitUntilMovementStops(playerID,score));
+        StartCoroutine(WaitUntilMovementStops(playerID, score));
 
     }
     public void HighJump()
@@ -95,9 +95,9 @@ public class MarbleObject : MonoBehaviour
         longJumpForce = range;
         //transform.position = new Vector3(-13.5f, -4.828952f, 0f);
         */
-        rb.AddForce(new Vector2(0, -1*(highJumpForce)), ForceMode2D.Impulse);
+        rb.AddForce(new Vector2(0, -1 * (highJumpForce)), ForceMode2D.Impulse);
         //StartCoroutine(WaitUntilMovementStops(playerID, score));
-        
+
 
     }
     IEnumerator WaitUntilMovementStops(string ID, int money)
@@ -128,11 +128,11 @@ public class MarbleObject : MonoBehaviour
         if (otherGameObject.layer == 9)
         {
             LockRotation();
-        } 
+        }
     }
     public void TransitionToScoreText()
     {
         playerName.text += $"\n{jumpDistance}";
-            //jumpDistance.ToString();
+        //jumpDistance.ToString();
     }
 }

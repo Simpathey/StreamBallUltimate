@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.IO;
-using Newtonsoft.Json;
+using UnityEngine;
 
-public class DataManager: MonoBehaviour
+public class DataManager : MonoBehaviour
 {
     public PlayerData data;
     public string file = "GameData.txt";
@@ -43,7 +43,7 @@ public class DataManager: MonoBehaviour
     {
         string path = GetFilePath(fileName);
         FileStream fileStream = new FileStream(path, FileMode.Create);
-        using(StreamWriter writer = new StreamWriter(fileStream))
+        using (StreamWriter writer = new StreamWriter(fileStream))
         {
             writer.Write(json);
         }

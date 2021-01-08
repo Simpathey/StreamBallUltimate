@@ -7,7 +7,7 @@ public class MarbleManager : MonoBehaviour
 
     private void Start()
     {
-        
+
     }
 
     //Ball Manager make sure there is only one ball per player at any time 
@@ -18,6 +18,6 @@ public class MarbleManager : MonoBehaviour
 
     public bool CanSpawn()
     {
-        return true; 
+        return true;
     }
 }
