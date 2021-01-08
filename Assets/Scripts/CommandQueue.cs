@@ -7,22 +7,22 @@ public class CommandQueue : MonoBehaviour
     //Queue's store and handle messege sending so the BOT does not break Twitch Dev Guidlines
     //100 chat messeges per min
     //200 whispers per min
-    Queue<Arrrgs> CommandQueueChat = new Queue<Arrrgs>();
-    Queue<Arrrgs> CommandQueueWhisper = new Queue<Arrrgs>();
+    Queue<CommandEventArgs> CommandQueueChat = new Queue<CommandEventArgs>();
+    Queue<CommandEventArgs> CommandQueueWhisper = new Queue<CommandEventArgs>();
     [SerializeField] Commands Commands;
     private void Start()
     {
         //commands = FindObjectOfType<Commands>();
         StartCoroutine(RemoveFromChatQueue());
     }
-    public void AddToChatQueue(Arrrgs arg)
+    public void AddToChatQueue(CommandEventArgs arg)
     {
         CommandQueueChat.Enqueue(arg);
         Debug.Log("Command in queue");
         Debug.Log("There are " + CommandQueueChat.Count + " in the queue");
     }
 
-    private void AddToWhisperQueue(Arrrgs arg)
+    private void AddToWhisperQueue(CommandEventArgs arg)
     {
         CommandQueueWhisper.Enqueue(arg);
     }
@@ -59,7 +59,7 @@ public class CommandQueue : MonoBehaviour
 
 
     //This Seperates the different commands into buckets
-    public void FirstCommandBuckets(Arrrgs e)
+    public void FirstCommandBuckets(CommandEventArgs e)
     {
         string firstCommand = e.CommandText; //Command.CommandText.ToLower();
         //These commands will provide player confirmation/Response in CHAT

@@ -61,7 +61,7 @@ public class TwitchClient : MonoBehaviour
 
     private void MyCommandReceivedFunction(object sender, OnChatCommandReceivedArgs e)
     {
-        Arrrgs chatArgs = new Arrrgs();
+        CommandEventArgs chatArgs = new CommandEventArgs();
         chatArgs.Message = e.Command.ChatMessage.Message;
         chatArgs.UserID = e.Command.ChatMessage.UserId;
         chatArgs.DisplayName = e.Command.ChatMessage.DisplayName;
@@ -84,7 +84,7 @@ public class TwitchClient : MonoBehaviour
     }
     private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
     {
-        Arrrgs chatArgs = new Arrrgs();
+        CommandEventArgs chatArgs = new CommandEventArgs();
         chatArgs.Message = e.WhisperMessage.Message;
         chatArgs.UserID = e.WhisperMessage.UserId;
         chatArgs.DisplayName = e.WhisperMessage.DisplayName;

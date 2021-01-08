@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Arrrgs
+public class CommandEventArgs
 {
     //These are the chat arguments that we care about 
     //Stores data for both whispers and chat messeges 

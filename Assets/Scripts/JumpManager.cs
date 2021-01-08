@@ -38,7 +38,7 @@ public class JumpManager : MonoBehaviour
         HighJumpedPlayers = new List<string>();
     }
 
-    public void CreateMarbleAndJump(Arrrgs e)
+    public void CreateMarbleAndJump(CommandEventArgs e)
     {
         string userID = e.UserID;
         string displayName = e.DisplayName;
@@ -78,7 +78,7 @@ public class JumpManager : MonoBehaviour
         }
     }
 
-    public void CreateMarbleAndHighJump(Arrrgs e)
+    public void CreateMarbleAndHighJump(CommandEventArgs e)
     {
         string userID = e.UserID;
         string displayName = e.DisplayName;

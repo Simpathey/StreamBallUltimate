@@ -55,7 +55,7 @@ public class GameData : MonoBehaviour
             return false;
         }
     }
-    public void CreateNewPlayerEntry(Arrrgs e)
+    public void CreateNewPlayerEntry(CommandEventArgs e)
     {
         PlayerData tempData = new PlayerData();
         tempData.Money = 0;
@@ -121,7 +121,7 @@ public class GameData : MonoBehaviour
         //Returns true if player subscribed 
     }
 
-    public string CheckSkins(Arrrgs e)
+    public string CheckSkins(CommandEventArgs e)
     {
         string playerID = e.UserID;
         string playerName = e.DisplayName;

@@ -62,7 +62,7 @@ public class Commands : MonoBehaviour
     }
 
     //Help - provids a list of commands
-    public void Help(Arrrgs e)
+    public void Help(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -76,13 +76,13 @@ public class Commands : MonoBehaviour
         }
     }
 
-    private void AttemptToHelp(Arrrgs e)
+    private void AttemptToHelp(CommandEventArgs e)
     {
         ChatClient.SendMessage(ChatJoinedChannel, help);
     }
 
     //Join - check if player data exists - if not create empty player data entry
-    public void Join(Arrrgs e)
+    public void Join(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -94,7 +94,7 @@ public class Commands : MonoBehaviour
             AttemptToJoin(e);
         }
     }
-    private void AttemptToJoin(Arrrgs e)
+    private void AttemptToJoin(CommandEventArgs e)
     {
         if (GameDataScript.CheckIfPlayerExists(e.UserID))
         {
@@ -109,7 +109,7 @@ public class Commands : MonoBehaviour
 
 
     //Money - checks if player data exists - if so returns how much money they have in chat
-    public void money(Arrrgs e)
+    public void money(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -121,7 +121,7 @@ public class Commands : MonoBehaviour
             AttemptToCheckMoney(e);
         }
     }
-    private void AttemptToCheckMoney(Arrrgs e)
+    private void AttemptToCheckMoney(CommandEventArgs e)
     {
         string playerID = e.UserID;
         string userName = e.DisplayName;
@@ -138,7 +138,7 @@ public class Commands : MonoBehaviour
 
 
     //Buy - checks if player data exists - if so checks if has enough money - if so then unlock skin
-    public void Buy(Arrrgs e)
+    public void Buy(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -150,7 +150,7 @@ public class Commands : MonoBehaviour
             AttemptToBuy(e);
         }
     }
-    public void AttemptToBuy(Arrrgs e)
+    public void AttemptToBuy(CommandEventArgs e)
     {
         string commonName = "";
         string playerID = e.UserID; //Command.ChatMessage.UserId;
@@ -209,7 +209,7 @@ public class Commands : MonoBehaviour
 
 
     //Equip - checks if player data exists - checks if they own that skin - equips the skin
-    public void Equip(Arrrgs e)
+    public void Equip(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -221,7 +221,7 @@ public class Commands : MonoBehaviour
             AttemptToEquip(e);
         }
     }
-    private void AttemptToEquip(Arrrgs e)
+    private void AttemptToEquip(CommandEventArgs e)
     {
         string commonName = "";
         string playerID = e.UserID;
@@ -262,7 +262,7 @@ public class Commands : MonoBehaviour
 
 
     //Equipted - checks if player data exists - checks what skin they have equipped - tells them what skin that is
-    public void InUse(Arrrgs e)
+    public void InUse(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -274,7 +274,7 @@ public class Commands : MonoBehaviour
             AttemptToInUse(e);
         }
     }
-    private void AttemptToInUse(Arrrgs e)
+    private void AttemptToInUse(CommandEventArgs e)
     {
         string playerID = e.UserID;
         string playerUserName = e.DisplayName;
@@ -291,7 +291,7 @@ public class Commands : MonoBehaviour
         }
 
     }
-    public void Play(Arrrgs e)
+    public void Play(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -304,7 +304,7 @@ public class Commands : MonoBehaviour
         }
     }
 
-    private void AttemptToPlay(Arrrgs e)
+    private void AttemptToPlay(CommandEventArgs e)
     {
         string userID = e.UserID;
         string displayName = e.DisplayName;
@@ -368,7 +368,7 @@ public class Commands : MonoBehaviour
         }
     }
     */
-    public void Skins(Arrrgs e)
+    public void Skins(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -380,7 +380,7 @@ public class Commands : MonoBehaviour
             AttemptToSkins(e);
         }
     }
-    public void AttemptToSkins(Arrrgs e)
+    public void AttemptToSkins(CommandEventArgs e)
     {
         string userID = e.UserID;
         string displayName = e.DisplayName;
@@ -406,14 +406,14 @@ public class Commands : MonoBehaviour
         ChatClient.SendMessage(ChatJoinedChannel, name + secretMsg);
     }
 
-    public void Rotate(Arrrgs e) //Temporary command!!! TODO REMOVE
+    public void Rotate(CommandEventArgs e) //Temporary command!!! TODO REMOVE
     {
         if (e.UserID == "73184979")
         {
             FindObjectOfType<Shop>().ResetShop();
         }
     }
-    public void Give(Arrrgs e)
+    public void Give(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -425,7 +425,7 @@ public class Commands : MonoBehaviour
             AttemptToGive(e);
         }
     }
-    public void AttemptToGive(Arrrgs e)
+    public void AttemptToGive(CommandEventArgs e)
     {
         if (e.MultiCommand != null)
         {
