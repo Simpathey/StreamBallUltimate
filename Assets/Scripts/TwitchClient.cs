@@ -20,11 +20,6 @@ public class TwitchClient : MonoBehaviour
     private string channel_name = "simpathey";
     private string bot_name = "simpagamebot";
 
-    private void Awake()
-    {
-        Secrets.EnvironmentVariables();
-    }
-
     void Start()
     {
         commandQueue = FindObjectOfType<CommandQueue>();
