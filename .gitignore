@@ -57,6 +57,8 @@ sysinfo.txt
 Builds
 Assets/Marbles/MarbleSkins
 Assets/Marbles/MarbleData/*.prefab*
+Assets/Marbles/MarbleData.meta
+Assets/Marbles/MarbleSkins.meta
 
 # Crashlytics generated file
 crashlytics-build.properties
