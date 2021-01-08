@@ -27,7 +27,7 @@ public class TwitchClient : MonoBehaviour
         Application.runInBackground = true;
 
         //set up bot and tell what channel to join
-        ConnectionCredentials credentials = new ConnectionCredentials("simpagamebot", Secrets.bot_access_token);
+        ConnectionCredentials credentials = new ConnectionCredentials(bot_name, Secrets.bot_access_token);
         client = new Client();
         client.Initialize(credentials, channel_name);
         //pubSub = new PubSub();
