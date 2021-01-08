@@ -17,8 +17,8 @@ public class TwitchAPI : MonoBehaviour
     {
         Application.runInBackground = true;
         api = new Api();
-        api.Settings.AccessToken = Secrets.bot_access_token;
-        api.Settings.ClientId = Secrets.client_id;
+        api.Settings.AccessToken = Secrets.BotAccessToken;
+        api.Settings.ClientId = Secrets.ClientID;
         GameObject client = GameObject.Find("Client");
         twitchClient = client.GetComponent<TwitchClient>();
     }
