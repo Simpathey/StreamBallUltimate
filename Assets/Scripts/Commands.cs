@@ -28,7 +28,7 @@ public class Commands : MonoBehaviour
     [SerializeField] JumpManager JumpManager;
     [SerializeField] Shop Shop;
     const string SecretMsg = " is hacking";
-    const string Help = "!join-join the game | !play-play the game when it is GAMETIME | play to earn money" +
+    const string HelpMessage = "!join-join the game | !play-play the game when it is GAMETIME | play to earn money" +
         " |  save money to buy and equip new marbles";
     const string PlayerAlreadyExists = " your user entry already exists, no need to join";
     const string NoPlayerEntryExists = ", Please type '!join' to play";
@@ -78,7 +78,7 @@ public class Commands : MonoBehaviour
 
     private void AttemptToHelp(CommandEventArgs e)
     {
-        ChatClient.SendMessage(ChatJoinedChannel, help);
+        ChatClient.SendMessage(ChatJoinedChannel, HelpMessage);
     }
 
     //Join - check if player data exists - if not create empty player data entry
@@ -98,12 +98,12 @@ public class Commands : MonoBehaviour
     {
         if (GameDataScript.CheckIfPlayerExists(e.UserID))
         {
-            ChatClient.SendMessage(ChatJoinedChannel, e.DisplayName + playerAlreadyExists);
+            ChatClient.SendMessage(ChatJoinedChannel, e.DisplayName + PlayerAlreadyExists);
         }
         else
         {
             GameDataScript.CreateNewPlayerEntry(e);
-            ChatClient.SendMessage(ChatJoinedChannel, e.DisplayName + playerEntryAdded);
+            ChatClient.SendMessage(ChatJoinedChannel, e.DisplayName + PlayerEntryAdded);
         }
     }
 
@@ -132,7 +132,7 @@ public class Commands : MonoBehaviour
         }
         else
         {
-            ChatClient.SendMessage(ChatJoinedChannel, userName + noPlayerEntryExists);
+            ChatClient.SendMessage(ChatJoinedChannel, userName + NoPlayerEntryExists);
         }
     }
 
@@ -173,7 +173,7 @@ public class Commands : MonoBehaviour
                     int marbleCode = MarbleList.GetMarbleCodeFromCommonName(commonName);
                     if (GameDataScript.IsSkinUnlocked(playerID, marbleCode))
                     {
-                        ChatClient.SendMessage(ChatJoinedChannel, playerUserName + skinAlreadyUnlocked1 + commonName + skinAlreadyUnlocked2);
+                        ChatClient.SendMessage(ChatJoinedChannel, playerUserName + SkinAlreadyUnlocked1 + commonName + SkinAlreadyUnlocked2);
                     }
                     else
                     {
@@ -182,28 +182,28 @@ public class Commands : MonoBehaviour
                             GameDataScript.SubtractMoneyFromPlayerID(marbleCost, playerID);
                             GameDataScript.UnlockSkinForPlayer(playerID, marbleCode);
                             int currentMoney = GameDataScript.CheckPlayerMoney(playerID);
-                            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + unlockedMarble1 +
-                                commonName + unlockedMarble2 + commonName + unlockedMarble3 + unlockedMarble4 + currentMoney);
+                            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + UnlockedMarble1 +
+                                commonName + UnlockedMarble2 + commonName + UnlockedMarble3 + UnlockedMarble4 + currentMoney);
                         }
                         else
                         {
-                            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + notEnoughMoney + commonName);
+                            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + NotEnoughMoney + commonName);
                         }
                     }
                 }
                 else
                 {
-                    ChatClient.SendMessage(ChatJoinedChannel, commonName + marbleNotInShop);
+                    ChatClient.SendMessage(ChatJoinedChannel, commonName + MarbleNotInShop);
                 }
             }
             else
             {
-                ChatClient.SendMessage(ChatJoinedChannel, playerUserName + noMarbleWithNameExists);
+                ChatClient.SendMessage(ChatJoinedChannel, playerUserName + NoMarbleWithNameExists);
             }
         }
         else
         {
-            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + noPlayerEntryExists);
+            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + NoPlayerEntryExists);
         }
     }
 
@@ -246,17 +246,17 @@ public class Commands : MonoBehaviour
                 }
                 else
                 {
-                    ChatClient.SendMessage(ChatJoinedChannel, playerUserName + dontOwnThatSkin);
+                    ChatClient.SendMessage(ChatJoinedChannel, playerUserName + DontOwnThatSkin);
                 }
             }
             else
             {
-                ChatClient.SendMessage(ChatJoinedChannel, playerUserName + noMarbleWithNameExists);
+                ChatClient.SendMessage(ChatJoinedChannel, playerUserName + NoMarbleWithNameExists);
             }
         }
         else
         {
-            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + noPlayerEntryExists);
+            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + NoPlayerEntryExists);
         }
     }
 
@@ -287,7 +287,7 @@ public class Commands : MonoBehaviour
         }
         else
         {
-            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + noPlayerEntryExists);
+            ChatClient.SendMessage(ChatJoinedChannel, playerUserName + NoPlayerEntryExists);
         }
 
     }
@@ -333,7 +333,7 @@ public class Commands : MonoBehaviour
         }
         else
         {
-            ChatClient.SendMessage(ChatJoinedChannel, displayName + noPlayerEntryExists);
+            ChatClient.SendMessage(ChatJoinedChannel, displayName + NoPlayerEntryExists);
         }
     }
     //AcceptWhispers
@@ -393,7 +393,7 @@ public class Commands : MonoBehaviour
         }
         else
         {
-            ChatClient.SendMessage(ChatJoinedChannel, displayName + noPlayerEntryExists);
+            ChatClient.SendMessage(ChatJoinedChannel, displayName + NoPlayerEntryExists);
         }
     }
     IEnumerator SkinsMessege(string skinsList)
@@ -403,7 +403,7 @@ public class Commands : MonoBehaviour
     }
     public void AkaiEasterEgg(string name)
     {
-        ChatClient.SendMessage(ChatJoinedChannel, name + secretMsg);
+        ChatClient.SendMessage(ChatJoinedChannel, name + SecretMsg);
     }
 
     public void Rotate(CommandEventArgs e) //Temporary command!!! TODO REMOVE
@@ -439,7 +439,7 @@ public class Commands : MonoBehaviour
                     string PersonGettingMoney = GameDataScript.ConvertCommonNameToUserID(otherPlayerDisplayName);
                     if (String.IsNullOrEmpty(PersonGettingMoney))
                     {
-                        ChatClient.SendMessage(ChatJoinedChannel, cantGiveMoneyToPlayer1 + otherPlayerDisplayName + cantGiveMoneyToPlayer2);
+                        ChatClient.SendMessage(ChatJoinedChannel, CantGiveMoneyToPlayer1 + otherPlayerDisplayName + CantGiveMoneyToPlayer2);
                     }
                     else
                     {
@@ -472,7 +472,7 @@ public class Commands : MonoBehaviour
                         }
                         else
                         {
-                            ChatClient.SendMessage(ChatJoinedChannel, cantGiveMoneyToPlayer1 + e.MultiCommand[0] + cantGiveMoneyToPlayer2);
+                            ChatClient.SendMessage(ChatJoinedChannel, CantGiveMoneyToPlayer1 + e.MultiCommand[0] + CantGiveMoneyToPlayer2);
                         }
                     }
                 }
@@ -483,7 +483,7 @@ public class Commands : MonoBehaviour
             }
             else
             {
-                ChatClient.SendMessage(ChatJoinedChannel, displayName + noPlayerEntryExists);
+                ChatClient.SendMessage(ChatJoinedChannel, displayName + NoPlayerEntryExists);
             }
         }
     }
