@@ -6,39 +6,39 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public float timeRemaining = 65;
-    public bool timerIsRunning = false;
-    public TextMeshPro timeText;
-    [SerializeField] float timeBetweenGames = 600;
-    [SerializeField] float timeOfGame = 90;
-    [SerializeField] GameController gameController;
+    public float TimeRemaining = 65;
+    public bool IsTimerRunning = false;
+    public TextMeshPro TimeText;
+    [SerializeField] float TimeBetweenGames = 600;
+    [SerializeField] float TimeOfGame = 90;
+    [SerializeField] GameController GameController;
     bool wasGameTime;
     void Start()
     {
-        timerIsRunning = true;
+        IsTimerRunning = true;
         wasGameTime = true;
     }
     void Update()
     {
-        if (timerIsRunning)
+        if (IsTimerRunning)
         {
-            if (timeRemaining > 0)
+            if (TimeRemaining > 0)
             {
-                timeRemaining -= Time.deltaTime;
-                DisplayTime(timeRemaining);
+                TimeRemaining -= Time.deltaTime;
+                DisplayTime(TimeRemaining);
             }
             else
             {
-                timerIsRunning = false;
-                timeRemaining = 0;
+                IsTimerRunning = false;
+                TimeRemaining = 0;
                 if (wasGameTime == true)
                 {
-                    gameController.TriggerCutscene();
+                    GameController.TriggerCutscene();
                     wasGameTime = false;
                 }
                 else
                 {
-                    gameController.TriggerDowntime();
+                    GameController.TriggerDowntime();
                     wasGameTime = true;
                 }
             }
@@ -50,16 +50,16 @@ public class Timer : MonoBehaviour
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
 
-        timeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        TimeText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
     public void ResetGameTimer()
     {
-        timeRemaining = timeOfGame;
-        timerIsRunning = true;
+        TimeRemaining = TimeOfGame;
+        IsTimerRunning = true;
     }
     public void ResetDowntimeTimer()
     {
-        timeRemaining = timeBetweenGames;
-        timerIsRunning = true;
+        TimeRemaining = TimeBetweenGames;
+        IsTimerRunning = true;
     }
 }

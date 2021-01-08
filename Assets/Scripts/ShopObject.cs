@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ShopObject : MonoBehaviour
 {
-    [SerializeField] public TMP_Text marbleName;
-    [SerializeField] public TextMeshPro marbleCost;
-    [SerializeField] public SpriteRenderer marbleSpriteRenderer;
+    [SerializeField] public TMP_Text Name;
+    [SerializeField] public TextMeshPro Cost;
+    [SerializeField] public SpriteRenderer SpriteRender;
 }

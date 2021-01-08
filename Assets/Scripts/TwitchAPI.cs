@@ -9,18 +9,19 @@ using UnityEngine;
 public class TwitchAPI : MonoBehaviour
 {
 
-    public Api api;
-    Client getClient;
-    TwitchClient twitchClient;
+    public Api API;
+    Client GetClient;
+    TwitchClient TwitchClient;
+
     // Start is called before the first frame update
     void Start()
     {
         Application.runInBackground = true;
-        api = new Api();
-        api.Settings.AccessToken = Secrets.BotAccessToken;
-        api.Settings.ClientId = Secrets.ClientID;
+        API = new Api();
+        API.Settings.AccessToken = Secrets.BotAccessToken;
+        API.Settings.ClientId = Secrets.ClientID;
         GameObject client = GameObject.Find("Client");
-        twitchClient = client.GetComponent<TwitchClient>();
+        TwitchClient = client.GetComponent<TwitchClient>();
     }
 
     // Update is called once per frame

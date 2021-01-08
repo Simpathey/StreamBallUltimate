@@ -10,65 +10,65 @@ using UnityEngine;
 public class JumpManager : MonoBehaviour
 {
     // I have syntactic sugar
-    [SerializeField] GameObject marbleObject;
-    [SerializeField] Transform longJumpLocation;
-    MarbleList marbleList;
-    MarbleObject playerMarble;
-    SpriteRenderer playerSpriteRenderer;
-    GameData gameData;
-    List<string> longJumpedPlayers = new List<string>();
-    List<string> highJumpedPlayers = new List<string>();
-    public int orderInLayer;
-    public int costToReroll = 50;
+    [SerializeField] GameObject MarbleObject;
+    [SerializeField] Transform LongJumpLocation;
+    MarbleList MarbleList;
+    MarbleObject PlayerMarble;
+    SpriteRenderer PlayerSpriteRenderer;
+    GameData GameData;
+    List<string> LongJumpedPlayers = new List<string>();
+    List<string> HighJumpedPlayers = new List<string>();
+    public int OrderInLayer;
+    public int CostToReroll = 50;
 
     private void Start()
     {
-        gameData = FindObjectOfType<GameData>();
-        marbleList = FindObjectOfType<MarbleList>();
-        orderInLayer = 0;
+        GameData = FindObjectOfType<GameData>();
+        MarbleList = FindObjectOfType<MarbleList>();
+        OrderInLayer = 0;
         Dictionary<string, float> kvp = new Dictionary<string, float>();
     }
     public void ResetLongJumpedPlayers()
     {
-        longJumpedPlayers = new List<string>();
+        LongJumpedPlayers = new List<string>();
     }
 
     public void ResetHighJumpedPlayers()
     {
-        highJumpedPlayers = new List<string>();
+        HighJumpedPlayers = new List<string>();
     }
 
     public void CreateMarbleAndJump(Arrrgs e)
     {
-        string userID = e.userID;
-        string displayName = e.displayName;
+        string userID = e.UserID;
+        string displayName = e.DisplayName;
         //if the player has not jumped yet
-        if (!(longJumpedPlayers.Contains(userID)))
+        if (!(LongJumpedPlayers.Contains(userID)))
         {
-            longJumpedPlayers.Add(userID);
-            var mb = Instantiate(marbleObject, longJumpLocation.position, transform.rotation);
+            LongJumpedPlayers.Add(userID);
+            var mb = Instantiate(MarbleObject, LongJumpLocation.position, transform.rotation);
             mb.transform.SetParent(transform);
-            mb.GetComponentInChildren<SpriteRenderer>().sortingOrder = orderInLayer;
-            orderInLayer++;
-            playerMarble = mb.GetComponentInChildren<MarbleObject>();
-            playerMarble.playerName.text = displayName;
-            int marbleIndex = gameData.GetPlayerEquipSkin(userID);
-            GameObject marbleGameObject = marbleList.GetMarbleFromMarbleCode(marbleIndex);
-            playerMarble.gameMarbleSprite.sprite = marbleGameObject.GetComponent<Marble>().marbleSprite;
-            playerMarble.playerID = userID;
+            mb.GetComponentInChildren<SpriteRenderer>().sortingOrder = OrderInLayer;
+            OrderInLayer++;
+            PlayerMarble = mb.GetComponentInChildren<MarbleObject>();
+            PlayerMarble.PlayerName.text = displayName;
+            int marbleIndex = GameData.GetPlayerEquipSkin(userID);
+            GameObject marbleGameObject = MarbleList.GetMarbleFromMarbleCode(marbleIndex);
+            PlayerMarble.GameMarbleSprite.sprite = marbleGameObject.GetComponent<Marble>().MarbleSprite;
+            PlayerMarble.PlayerId = userID;
         }
         else //if player has already rolled
         {
-            if (gameData.CheckPlayerMoney(userID) > costToReroll)
+            if (GameData.CheckPlayerMoney(userID) > CostToReroll)
             {
                 MarbleObject[] allMarbles = GetComponentsInChildren<MarbleObject>();
                 foreach (var marble in allMarbles)
                 {
-                    if (marble.playerID == userID && !(marble.isrolling))
+                    if (marble.PlayerId == userID && !(marble.IsRolling))
                     {
                         Destroy(marble.transform.parent.gameObject);
-                        gameData.SubtractMoneyFromPlayerID(costToReroll, userID);
-                        longJumpedPlayers.Remove(userID);
+                        GameData.SubtractMoneyFromPlayerID(CostToReroll, userID);
+                        LongJumpedPlayers.Remove(userID);
                         CreateMarbleAndJump(e);
                     }
                 }
@@ -80,21 +80,21 @@ public class JumpManager : MonoBehaviour
 
     public void CreateMarbleAndHighJump(Arrrgs e)
     {
-        string userID = e.userID;
-        string displayName = e.displayName;
-        if (!(highJumpedPlayers.Contains(userID)))
+        string userID = e.UserID;
+        string displayName = e.DisplayName;
+        if (!(HighJumpedPlayers.Contains(userID)))
         {
-            highJumpedPlayers.Add(userID);
-            var mb = Instantiate(marbleObject, longJumpLocation.position, transform.rotation);
+            HighJumpedPlayers.Add(userID);
+            var mb = Instantiate(MarbleObject, LongJumpLocation.position, transform.rotation);
             mb.transform.SetParent(transform);
-            mb.GetComponentInChildren<SpriteRenderer>().sortingOrder = orderInLayer;
-            orderInLayer++;
-            playerMarble = mb.GetComponentInChildren<MarbleObject>();
-            playerMarble.playerName.text = displayName;
-            int marbleIndex = gameData.GetPlayerEquipSkin(userID);
-            GameObject marbleGameObject = marbleList.GetMarbleFromMarbleCode(marbleIndex);
-            playerMarble.gameMarbleSprite.sprite = marbleGameObject.GetComponent<Marble>().marbleSprite;
-            playerMarble.playerID = userID;
+            mb.GetComponentInChildren<SpriteRenderer>().sortingOrder = OrderInLayer;
+            OrderInLayer++;
+            PlayerMarble = mb.GetComponentInChildren<MarbleObject>();
+            PlayerMarble.PlayerName.text = displayName;
+            int marbleIndex = GameData.GetPlayerEquipSkin(userID);
+            GameObject marbleGameObject = MarbleList.GetMarbleFromMarbleCode(marbleIndex);
+            PlayerMarble.GameMarbleSprite.sprite = marbleGameObject.GetComponent<Marble>().MarbleSprite;
+            PlayerMarble.PlayerId = userID;
         }
     }
 
@@ -104,7 +104,7 @@ public class JumpManager : MonoBehaviour
 
         foreach (var marble in allMarbles)
         {
-            while (marble.isrolling == true)
+            while (marble.IsRolling == true)
             {
                 yield return new WaitForSeconds(0.5f);
             }
@@ -114,8 +114,8 @@ public class JumpManager : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-        longJumpedPlayers = new List<string>();
-        orderInLayer = 0;
+        LongJumpedPlayers = new List<string>();
+        OrderInLayer = 0;
     }
 
 

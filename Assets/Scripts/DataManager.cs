@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-    public PlayerData data;
-    public string file = "GameData.txt";
+    public PlayerData Data;
+    public string File = "GameData.txt";
 
     public void Save()
     {
-        Debug.Log(data);
-        string json = JsonConvert.SerializeObject(data);
+        Debug.Log(Data);
+        string json = JsonConvert.SerializeObject(Data);
         //WriteToFile(file, json);
         System.IO.File.WriteAllText(@"D:\SimpaGameBotData\GameData.txt", json);
     }
@@ -26,15 +26,15 @@ public class DataManager : MonoBehaviour
     public void Backup(Dictionary<string, PlayerData> gameData)
     {
         //Code saves at this point to our text file 
-        Debug.Log(data);
+        Debug.Log(Data);
         string json = JsonConvert.SerializeObject(gameData, Formatting.Indented);
         System.IO.File.WriteAllText(@"D:\SimpaGameBotData\GameData.txt", json);
     }
 
     public string Load()
     {
-        data = new PlayerData();
-        string json = ReadFromFile(file);
+        Data = new PlayerData();
+        string json = ReadFromFile(File);
         return json;
         //JsonUtility.FromJsonOverwrite(json, data);
     }
@@ -58,7 +58,7 @@ public class DataManager : MonoBehaviour
     private string ReadFromFile(string fileName)
     {
         string path = GetFilePath(fileName);
-        if (File.Exists(path))
+        if (System.IO.File.Exists(path))
         {
             using (StreamReader reader = new StreamReader(path))
             {
