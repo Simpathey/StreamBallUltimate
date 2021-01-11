@@ -39,7 +39,7 @@ public class CommandQueue : MonoBehaviour
                 if (firstCommand == "buy") { Commands.Buy(e); }
                 else if (firstCommand == "join") { Commands.Join(e); }
                 else if (firstCommand == "equip") { Commands.Equip(e); }
-                else if (firstCommand == "money") { Commands.money(e); }
+                else if (firstCommand == "money") { Commands.CheckMoney(e); }
                 else if (firstCommand == "inuse") { Commands.InUse(e); }
                 else if (firstCommand == "help") { Commands.Help(e); }
                 else if (firstCommand == "skins") { Commands.Skins(e); }

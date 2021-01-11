@@ -109,7 +109,7 @@ public class Commands : MonoBehaviour
 
 
     //Money - checks if player data exists - if so returns how much money they have in chat
-    public void money(CommandEventArgs e)
+    public void CheckMoney(CommandEventArgs e)
     {
         if (ChatClient == null)
         {
@@ -152,12 +152,11 @@ public class Commands : MonoBehaviour
     }
     public void AttemptToBuy(CommandEventArgs e)
     {
-        string commonName = "";
         string playerID = e.UserID; //Command.ChatMessage.UserId;
         string playerUserName = e.DisplayName; //Command.ChatMessage.Username;
         if (GameDataScript.CheckIfPlayerExists(playerID))
         {
-            commonName = e.CommandArgs;
+            string commonName = e.CommandArgs;
             /*
             for (int index = 0; index < e.Command.ArgumentsAsList.Count; index++)
             {
