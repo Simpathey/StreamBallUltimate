@@ -310,17 +310,17 @@ public class Commands : MonoBehaviour
 
         if (GameDataScript.CheckIfPlayerExists(userID))
         {
-            if (GameController.CurrentState == gameState.gametime)
+            if (GameController.CurrentState == GameState.GameTime)
             {
-                if (GameController.CurrentGameMode == gameMode.longjump)
+                if (GameController.CurrentGameMode == GameMode.LongJump)
                 {
                     JumpManager.CreateMarbleAndJump(e);
                 }
-                else if (GameController.CurrentGameMode == gameMode.highjump)
+                else if (GameController.CurrentGameMode == GameMode.HighJump)
                 {
                     JumpManager.CreateMarbleAndHighJump(e);
                 }
-                else if (GameController.CurrentGameMode == gameMode.race)
+                else if (GameController.CurrentGameMode == GameMode.Race)
                 {
 
                 }

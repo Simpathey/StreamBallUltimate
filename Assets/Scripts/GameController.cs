@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public enum gameState { downtime, cutscene, gametime };
-public enum gameMode { longjump, highjump, race };
 public class GameController : MonoBehaviour
 {
     public DataManager DataManager;
-    public gameState CurrentState;
-    public gameMode CurrentGameMode;
+    public GameState CurrentState;
+    public GameMode CurrentGameMode;
     [SerializeField] TextMeshPro GameStateText;
     JumpManager JumpManager;
     public Shop GameShop;
@@ -23,8 +21,8 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        CurrentGameMode = gameMode.longjump;
-        CurrentState = gameState.downtime;
+        CurrentGameMode = GameMode.LongJump;
+        CurrentState = GameState.DownTime;
         JumpManager = FindObjectOfType<JumpManager>();
         UpdateGameStateText();
     }
@@ -34,13 +32,13 @@ public class GameController : MonoBehaviour
         Debug.Log(CurrentState);
         switch (CurrentState)
         {
-            case gameState.downtime:
+            case GameState.DownTime:
                 GameStateText.text = "Down Time";
                 break;
-            case gameState.cutscene:
+            case GameState.Cutscene:
                 GameStateText.text = "Cut Scene";
                 break;
-            case gameState.gametime:
+            case GameState.GameTime:
                 GameStateText.text = "Game Time";
                 break;
             default:
@@ -58,21 +56,21 @@ public class GameController : MonoBehaviour
 
     public void TriggerCutscene()
     {
-        CurrentState = gameState.cutscene;
+        CurrentState = GameState.Cutscene;
         GameShop.gameObject.SetActive(false);
         NullCharacter.NullStartCutScene();
         UpdateGameStateText();
     }
     public void TriggerGame()
     {
-        CurrentState = gameState.gametime;
+        CurrentState = GameState.GameTime;
         UpdateGameStateText();
         Timer.ResetGameTimer();
     }
     public void TriggerDowntime()
     {
         Shop.ResetShop();
-        CurrentState = gameState.downtime;
+        CurrentState = GameState.DownTime;
         UpdateGameStateText();
         Timer.ResetDowntimeTimer();
         StartCoroutine(JumpManager.DestroyMarbles());
@@ -84,12 +82,12 @@ public class GameController : MonoBehaviour
         Debug.Log(CurrentGameMode);
         switch (CurrentGameMode)
         {
-            case gameMode.longjump:
+            case GameMode.LongJump:
                 return "Long Jump";
-            case gameMode.highjump:
+            case GameMode.HighJump:
                 Debug.Log("Launching High Jump");
                 return "High Jump";
-            case gameMode.race:
+            case GameMode.Race:
                 return "Race";
             default:
                 return "YOUR MOM";
