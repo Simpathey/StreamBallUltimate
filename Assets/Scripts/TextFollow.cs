@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class TextFollow : MonoBehaviour
 {
-    [SerializeField] Transform marblePos;
-    Transform textPos;
-    Vector3 offset = new Vector3(0, .9f, 0);
-    [SerializeField] MarbleObject myMarbleObject;
-    Animator textAnimator;
+    [SerializeField] Transform MarblePos;
+    Transform TextPos;
+    Vector3 Offset = new Vector3(0, .9f, 0);
+    [SerializeField] MarbleObject MyMarbleObject;
+    Animator TextAnimator;
 
     private void Start()
     {
-        textPos = GetComponent<Transform>();
-        textAnimator = GetComponent<Animator>();
+        TextPos = GetComponent<Transform>();
+        TextAnimator = GetComponent<Animator>();
     }
     void Update()
     {
-        textPos.position = marblePos.position + offset;
+        TextPos.position = MarblePos.position + Offset;
     }
     public void DisplayScore()
     {
-        myMarbleObject.TransitionToScoreText();
+        MyMarbleObject.TransitionToScoreText();
     }
 
     public void TriggerAnimation()
     {
-        textAnimator.SetTrigger("showScore");
+        TextAnimator.SetTrigger("showScore");
     }
 }

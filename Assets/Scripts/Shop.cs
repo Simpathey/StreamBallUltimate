@@ -5,14 +5,14 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     //It was the salmonmoose
-    [SerializeField] GameObject shopObject;
-    [SerializeField] Transform[] shopObjectLocations;
-    MarbleList marbleList;
-    HashSet<GameObject> shopMarbles;
+    [SerializeField] GameObject ShopObject;
+    [SerializeField] Transform[] ShopObjectLocations;
+    MarbleList MarbleList;
+    HashSet<GameObject> ShopMarbles;
 
     void Start()
     {
-        marbleList = FindObjectOfType<MarbleList>();
+        MarbleList = FindObjectOfType<MarbleList>();
         DisplayShopItems();
     }
 
@@ -21,23 +21,23 @@ public class Shop : MonoBehaviour
     {
         Generate3ShopItems();
         int counter = 0;
-        foreach (var item in shopMarbles)
+        foreach (var item in ShopMarbles)
         {
-            GameObject shop = Instantiate(shopObject);
+            GameObject shop = Instantiate(ShopObject);
             shop.transform.SetParent(transform);
             Marble marble = item.GetComponent<Marble>();
-            string name = marble.commonName;
-            string cost = marble.cost.ToString();
-            Sprite sprite = marble.marbleSprite;
+            string name = marble.CommonName;
+            string cost = marble.Cost.ToString();
+            Sprite sprite = marble.MarbleSprite;
 
             ShopObject newShopObject = shop.GetComponent<ShopObject>();
-            newShopObject.marbleName.text = name;
-            newShopObject.marbleCost.text = "$" + cost;
-            newShopObject.marbleSpriteRenderer.sprite = sprite;
+            newShopObject.Name.text = name;
+            newShopObject.Cost.text = "$" + cost;
+            newShopObject.SpriteRender.sprite = sprite;
 
-            if (counter < shopObjectLocations.Length)
+            if (counter < ShopObjectLocations.Length)
             {
-                shop.transform.position = shopObjectLocations[counter].position;
+                shop.transform.position = ShopObjectLocations[counter].position;
             }
             counter++;
         }
@@ -45,7 +45,7 @@ public class Shop : MonoBehaviour
 
     private void Generate3ShopItems()
     {
-        shopMarbles = marbleList.GetMarblesForShop(3);
+        ShopMarbles = MarbleList.GetMarblesForShop(3);
     }
 
     public void ResetShop()
@@ -70,7 +70,7 @@ public class Shop : MonoBehaviour
     public bool MarbleNamesInShop(string checkedMarble)
     {
         bool marbleInShop = false;
-        foreach (var marble in shopMarbles)
+        foreach (var marble in ShopMarbles)
         {
             Debug.Log(marble.name);
             Debug.Log(checkedMarble);

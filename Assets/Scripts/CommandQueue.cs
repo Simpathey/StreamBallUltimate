@@ -7,24 +7,24 @@ public class CommandQueue : MonoBehaviour
     //Queue's store and handle messege sending so the BOT does not break Twitch Dev Guidlines
     //100 chat messeges per min
     //200 whispers per min
-    Queue<Arrrgs> commandQueueChat = new Queue<Arrrgs>();
-    Queue<Arrrgs> commandQueueWhisper = new Queue<Arrrgs>();
-    [SerializeField] Commands commands;
+    Queue<CommandEventArgs> CommandQueueChat = new Queue<CommandEventArgs>();
+    Queue<CommandEventArgs> CommandQueueWhisper = new Queue<CommandEventArgs>();
+    [SerializeField] Commands Commands;
     private void Start()
     {
         //commands = FindObjectOfType<Commands>();
         StartCoroutine(RemoveFromChatQueue());
     }
-    public void AddToChatQueue(Arrrgs arg)
+    public void AddToChatQueue(CommandEventArgs arg)
     {
-        commandQueueChat.Enqueue(arg);
+        CommandQueueChat.Enqueue(arg);
         Debug.Log("Command in queue");
-        Debug.Log("There are " + commandQueueChat.Count + " in the queue");
+        Debug.Log("There are " + CommandQueueChat.Count + " in the queue");
     }
 
-    private void AddToWhisperQueue(Arrrgs arg)
+    private void AddToWhisperQueue(CommandEventArgs arg)
     {
-        commandQueueWhisper.Enqueue(arg);
+        CommandQueueWhisper.Enqueue(arg);
     }
 
     //This Dequeue's from the commandChatQueue
@@ -32,18 +32,18 @@ public class CommandQueue : MonoBehaviour
     {
         while (true)
         {
-            if (commandQueueChat.Count != 0)
+            if (CommandQueueChat.Count != 0)
             {
-                var e = commandQueueChat.Dequeue();
-                string firstCommand = e.commandText; //Command.CommandText.ToLower();
-                if (firstCommand == "buy") { commands.Buy(e); }
-                else if (firstCommand == "join") { commands.Join(e); }
-                else if (firstCommand == "equip") { commands.Equip(e); }
-                else if (firstCommand == "money") { commands.money(e); }
-                else if (firstCommand == "inuse") { commands.InUse(e); }
-                else if (firstCommand == "help") { commands.Help(e); }
-                else if (firstCommand == "skins") { commands.Skins(e); }
-                else if (firstCommand == "give") { commands.Give(e); }
+                var e = CommandQueueChat.Dequeue();
+                string firstCommand = e.CommandText; //Command.CommandText.ToLower();
+                if (firstCommand == "buy") { Commands.Buy(e); }
+                else if (firstCommand == "join") { Commands.Join(e); }
+                else if (firstCommand == "equip") { Commands.Equip(e); }
+                else if (firstCommand == "money") { Commands.CheckMoney(e); }
+                else if (firstCommand == "inuse") { Commands.InUse(e); }
+                else if (firstCommand == "help") { Commands.Help(e); }
+                else if (firstCommand == "skins") { Commands.Skins(e); }
+                else if (firstCommand == "give") { Commands.Give(e); }
 
                 //else if (firstCommand == "stopwhispers") { commands.StopWhispers(e); }
                 else { Debug.LogWarning("COMMAND NOT FOUND"); }
@@ -56,28 +56,28 @@ public class CommandQueue : MonoBehaviour
 
         }
     }
-   
+
 
     //This Seperates the different commands into buckets
-    public void FirstCommandBuckets(Arrrgs e)
+    public void FirstCommandBuckets(CommandEventArgs e)
     {
-        string firstCommand = e.commandText; //Command.CommandText.ToLower();
+        string firstCommand = e.CommandText; //Command.CommandText.ToLower();
         //These commands will provide player confirmation/Response in CHAT
-        if (firstCommand == "buy")     { AddToChatQueue(e); }
-        else if (firstCommand == "join")     { AddToChatQueue(e); }
-        else if (firstCommand == "equip")   { AddToChatQueue(e); }
+        if (firstCommand == "buy") { AddToChatQueue(e); }
+        else if (firstCommand == "join") { AddToChatQueue(e); }
+        else if (firstCommand == "equip") { AddToChatQueue(e); }
         else if (firstCommand == "money") { AddToChatQueue(e); }
         else if (firstCommand == "inuse") { AddToChatQueue(e); }
         else if (firstCommand == "skins") { AddToChatQueue(e); }
         else if (firstCommand == "give") { AddToChatQueue(e); }
 
         //These commands will provide player with visial confirmation in overlay
-        else if  (firstCommand == "play") { commands.Play(e); }
-        else if (firstCommand == "rotate") { commands.Rotate(e); } //TEMPORARY CHAT COMMAND TO ROTATE SHOP
+        else if (firstCommand == "play") { Commands.Play(e); }
+        else if (firstCommand == "rotate") { Commands.Rotate(e); } //TEMPORARY CHAT COMMAND TO ROTATE SHOP
         //These commands will provide player with whisper confirmation 
         else if (firstCommand == "help") { AddToChatQueue(e); }
-        else if (firstCommand == "vfx")     { }
-        else if (firstCommand == "sfx")     { }
+        else if (firstCommand == "vfx") { }
+        else if (firstCommand == "sfx") { }
 
         else { return; }
     }

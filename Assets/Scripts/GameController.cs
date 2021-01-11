@@ -1,47 +1,45 @@
-﻿using System.Collections; // Don't eat TheBookSnail or you might get rat lungworm :0
+﻿using Newtonsoft.Json;
+using System.Collections; // Don't eat TheBookSnail or you might get rat lungworm :0
 using System.Collections.Generic;
-using UnityEngine;
-using Newtonsoft.Json;
 using TMPro;
+using UnityEngine;
 
-public enum gameState { downtime, cutscene, gametime };
-public enum gameMode { longjump, highjump, race };
 public class GameController : MonoBehaviour
 {
-    public DataManager dataManager;
-    public gameState currentState;
-    public gameMode currentGameMode;
-    [SerializeField] TextMeshPro gameStateText;
-    JumpManager jumpManager;
-    public Shop gameShop;
-    [SerializeField] Null nullCharacter;
-    [SerializeField] Timer timer;
-    [SerializeField] Shop shop;
+    public DataManager DataManager;
+    public GameState CurrentState;
+    public GameMode CurrentGameMode;
+    [SerializeField] TextMeshPro GameStateText;
+    JumpManager JumpManager;
+    public Shop GameShop;
+    [SerializeField] Null NullCharacter;
+    [SerializeField] Timer Timer;
+    [SerializeField] Shop Shop;
 
     //The game has states Downtime, Cutscene, Gametime
     //Gametime can link to different game modes longJump, highJump, race 
 
     void Start()
     {
-        currentGameMode = gameMode.longjump;
-        currentState = gameState.downtime;
-        jumpManager = FindObjectOfType<JumpManager>();
+        CurrentGameMode = GameMode.LongJump;
+        CurrentState = GameState.DownTime;
+        JumpManager = FindObjectOfType<JumpManager>();
         UpdateGameStateText();
     }
 
     private void UpdateGameStateText()
     {
-        Debug.Log(currentState);
-        switch (currentState)
+        Debug.Log(CurrentState);
+        switch (CurrentState)
         {
-            case gameState.downtime:
-                gameStateText.text = "Down Time";
+            case GameState.DownTime:
+                GameStateText.text = "Down Time";
                 break;
-            case gameState.cutscene:
-                gameStateText.text = "Cut Scene";
+            case GameState.Cutscene:
+                GameStateText.text = "Cut Scene";
                 break;
-            case gameState.gametime:
-                gameStateText.text = "Game Time";
+            case GameState.GameTime:
+                GameStateText.text = "Game Time";
                 break;
             default:
                 break;
@@ -52,44 +50,44 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
-            jumpManager.DestroyMarbles();
+            JumpManager.DestroyMarbles();
         }
     }
 
     public void TriggerCutscene()
     {
-        currentState = gameState.cutscene;
-        gameShop.gameObject.SetActive(false);
-        nullCharacter.NullStartCutScene();
+        CurrentState = GameState.Cutscene;
+        GameShop.gameObject.SetActive(false);
+        NullCharacter.NullStartCutScene();
         UpdateGameStateText();
     }
     public void TriggerGame()
     {
-        currentState = gameState.gametime;
+        CurrentState = GameState.GameTime;
         UpdateGameStateText();
-        timer.ResetGameTimer();
+        Timer.ResetGameTimer();
     }
     public void TriggerDowntime()
     {
-        shop.ResetShop();
-        currentState = gameState.downtime;
+        Shop.ResetShop();
+        CurrentState = GameState.DownTime;
         UpdateGameStateText();
-        timer.ResetDowntimeTimer();
-        StartCoroutine(jumpManager.DestroyMarbles());
-        nullCharacter.HideCharacter();
-        gameShop.gameObject.SetActive(true);
+        Timer.ResetDowntimeTimer();
+        StartCoroutine(JumpManager.DestroyMarbles());
+        NullCharacter.HideCharacter();
+        GameShop.gameObject.SetActive(true);
     }
     public string FindGameState()
     {
-        Debug.Log(currentGameMode);
-        switch (currentGameMode)
+        Debug.Log(CurrentGameMode);
+        switch (CurrentGameMode)
         {
-            case gameMode.longjump:
+            case GameMode.LongJump:
                 return "Long Jump";
-            case gameMode.highjump:
+            case GameMode.HighJump:
                 Debug.Log("Launching High Jump");
                 return "High Jump";
-            case gameMode.race:
+            case GameMode.Race:
                 return "Race";
             default:
                 return "YOUR MOM";

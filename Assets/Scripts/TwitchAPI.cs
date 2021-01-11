@@ -1,26 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using TwitchLib.Api.Models.Undocumented.Chatters;
 using TwitchLib.Client.Models;
 using TwitchLib.Unity;
-using TwitchLib.Api.Models.Undocumented.Chatters;
-using System;
+using UnityEngine;
 
 public class TwitchAPI : MonoBehaviour
 {
 
-    public Api api;
-    Client getClient;
-    TwitchClient twitchClient;
+    public Api API;
+    Client GetClient;
+    TwitchClient TwitchClient;
+
     // Start is called before the first frame update
     void Start()
     {
         Application.runInBackground = true;
-        api = new Api();
-        api.Settings.AccessToken = Secrets.bot_access_token;
-        api.Settings.ClientId = Secrets.client_id;
+        API = new Api();
+        API.Settings.AccessToken = Secrets.BotAccessToken;
+        API.Settings.ClientId = Secrets.ClientID;
         GameObject client = GameObject.Find("Client");
-        twitchClient = client.GetComponent<TwitchClient>();
+        TwitchClient = client.GetComponent<TwitchClient>();
     }
 
     // Update is called once per frame
@@ -40,7 +41,7 @@ public class TwitchAPI : MonoBehaviour
         Debug.Log("List of " + listOfChatters.Count + "Viewers: ");
         foreach (var chatterObject in listOfChatters)
         {
-           // Debug.Log(chatterObject.Username);
+            // Debug.Log(chatterObject.Username);
         }
     }
 }

@@ -1,50 +1,45 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using TwitchLib.Client.Models;
-using TwitchLib.Unity;
 using TwitchLib.Client.Events;
-using System;
+using TwitchLib.Client.Models;
 using TwitchLib.PubSub.Events;
+using TwitchLib.Unity;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TwitchClient : MonoBehaviour
 {
     // Client Object is defined in Twitch Lib
-    public Client client;
-    public JoinedChannel joinedChannel;
-    public JoinedChannel botChannel;
-    CommandQueue commandQueue;
-    private PubSub pubSub;
-    [SerializeField] Text debug;
-    private string channel_name = "simpathey";
-    private string bot_name = "simpagamebot";
-
-    private void Awake()
-    {
-        Secrets.EnvironmentVariables();
-    }
+    public Client Client;
+    public JoinedChannel JoinedChannel;
+    public JoinedChannel BotChannel;
+    CommandQueue CommandQueue;
+    private PubSub PubSub;
+    [SerializeField] Text Debug;
+    private string ChannelName = "simpathey";
+    private string BotName = "simpagamebot";
 
     void Start()
     {
-        commandQueue = FindObjectOfType<CommandQueue>();
+        CommandQueue = FindObjectOfType<CommandQueue>();
         //This script should always run in background if game application is running
         Application.runInBackground = true;
 
         //set up bot and tell what channel to join
-        ConnectionCredentials credentials = new ConnectionCredentials("simpagamebot", Secrets.bot_access_token);
-        client = new Client();
-        client.Initialize(credentials, channel_name);
+        ConnectionCredentials credentials = new ConnectionCredentials(BotName, Secrets.BotAccessToken);
+        Client = new Client();
+        Client.Initialize(credentials, ChannelName);
         //pubSub = new PubSub();
 
         //connect bot to channel
-        client.Connect();
-        client.OnJoinedChannel += ClientOnJoinedChannel;
-        client.OnMessageReceived += MyMessageReceivedFunction;
-        client.OnChatCommandReceived += MyCommandReceivedFunction;
-        client.OnWhisperSent += Client_OnWhisperSent;
-        client.OnWhisperReceived += Client_OnWhisperReceived;
-        
+        Client.Connect();
+        Client.OnJoinedChannel += ClientOnJoinedChannel;
+        Client.OnMessageReceived += MyMessageReceivedFunction;
+        Client.OnChatCommandReceived += MyCommandReceivedFunction;
+        Client.OnWhisperSent += Client_OnWhisperSent;
+        Client.OnWhisperReceived += Client_OnWhisperReceived;
+
         //pubSub.OnChannelCommerceReceived += Pubsub_OnCommerceReceived;
 
         //client.On will fill in with telesence
@@ -53,49 +48,49 @@ public class TwitchClient : MonoBehaviour
 
     private void Client_OnWhisperSent(object sender, OnWhisperSentArgs e)
     {
-        Debug.Log(sender.ToString());
-        Debug.Log(e.Receiver);
+        UnityEngine.Debug.Log(sender.ToString());
+        UnityEngine.Debug.Log(e.Receiver);
     }
 
     private void ClientOnJoinedChannel(object sender, OnJoinedChannelArgs e)
     {
-        joinedChannel = new JoinedChannel(channel_name);
-        botChannel = new JoinedChannel(bot_name);
+        JoinedChannel = new JoinedChannel(ChannelName);
+        BotChannel = new JoinedChannel(BotName);
         //client.SendMessage(joinedChannel, "SimpaGameBotConnected");
     }
 
     private void MyCommandReceivedFunction(object sender, OnChatCommandReceivedArgs e)
     {
-        Arrrgs chatArgs = new Arrrgs();
-        chatArgs.message = e.Command.ChatMessage.Message;
-        chatArgs.userID = e.Command.ChatMessage.UserId;
-        chatArgs.displayName = e.Command.ChatMessage.DisplayName;
-        chatArgs.commandText = e.Command.CommandText.ToLower();
-        chatArgs.multiCommand = e.Command.ArgumentsAsList;
-        
+        CommandEventArgs chatArgs = new CommandEventArgs();
+        chatArgs.Message = e.Command.ChatMessage.Message;
+        chatArgs.UserID = e.Command.ChatMessage.UserId;
+        chatArgs.DisplayName = e.Command.ChatMessage.DisplayName;
+        chatArgs.CommandText = e.Command.CommandText.ToLower();
+        chatArgs.MultiCommand = e.Command.ArgumentsAsList;
+
         for (int index = 0; index < e.Command.ArgumentsAsList.Count; index++)
         {
-            chatArgs.commandArgs += e.Command.ArgumentsAsList[index].ToLower();
+            chatArgs.CommandArgs += e.Command.ArgumentsAsList[index].ToLower();
         }
 
-        commandQueue.FirstCommandBuckets(chatArgs); //e
-        debug.text = (e.Command.ChatMessage.Username);
+        CommandQueue.FirstCommandBuckets(chatArgs); //e
+        Debug.text = (e.Command.ChatMessage.Username);
     }
 
     private void MyMessageReceivedFunction(object sender,
         TwitchLib.Client.Events.OnMessageReceivedArgs e)
     {
-        Debug.Log(e.ChatMessage.UserId);
+        UnityEngine.Debug.Log(e.ChatMessage.UserId);
     }
     private void Client_OnWhisperReceived(object sender, OnWhisperReceivedArgs e)
     {
-        Arrrgs chatArgs = new Arrrgs();
-        chatArgs.message = e.WhisperMessage.Message;
-        chatArgs.userID = e.WhisperMessage.UserId;
-        chatArgs.displayName = e.WhisperMessage.DisplayName;
-        chatArgs.commandText = ConvertWhisperToCommand(e.WhisperMessage.Message);
-        chatArgs.commandArgs = ConvertWhisperToArguments(e.WhisperMessage.Message);
-        commandQueue.FirstCommandBuckets(chatArgs);
+        CommandEventArgs chatArgs = new CommandEventArgs();
+        chatArgs.Message = e.WhisperMessage.Message;
+        chatArgs.UserID = e.WhisperMessage.UserId;
+        chatArgs.DisplayName = e.WhisperMessage.DisplayName;
+        chatArgs.CommandText = ConvertWhisperToCommand(e.WhisperMessage.Message);
+        chatArgs.CommandArgs = ConvertWhisperToArguments(e.WhisperMessage.Message);
+        CommandQueue.FirstCommandBuckets(chatArgs);
     }
     private string ConvertWhisperToCommand(string whisper)
     {
@@ -106,16 +101,16 @@ public class TwitchClient : MonoBehaviour
         else
         {
 
-                whisper = whisper.Substring(1);
-                string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                return (commandArray[0].ToLower());
+            whisper = whisper.Substring(1);
+            string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            return (commandArray[0].ToLower());
 
         }
     }
-    
+
     private string ConvertWhisperToArguments(string whisper)
     {
-        string commands = ""; 
+        string commands = "";
         if (string.IsNullOrEmpty(whisper))
         {
             return whisper;
@@ -123,19 +118,19 @@ public class TwitchClient : MonoBehaviour
         else
         {
 
-                whisper = whisper.Substring(1);
-                string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                Debug.Log(commandArray[0]);
-                if (commandArray.Length > 1)
+            whisper = whisper.Substring(1);
+            string[] commandArray = whisper.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            UnityEngine.Debug.Log(commandArray[0]);
+            if (commandArray.Length > 1)
+            {
+                for (int i = 1; i < commandArray.Length; i++)
                 {
-                    for (int i = 1; i < commandArray.Length; i++)
-                    {
-                        commands += commandArray[i];
-                    }
+                    commands += commandArray[i];
                 }
-                commands = commands.ToLower();
-                return (commands);
-            
+            }
+            commands = commands.ToLower();
+            return (commands);
+
         }
     }
     private List<string> ParseCommand(string command)
@@ -148,8 +143,8 @@ public class TwitchClient : MonoBehaviour
         }
         for (int i = 0; i < commandArray.Length; i++)
         {
-            Debug.Log(commandArray.Length + " : this is command Array Length");
-            Debug.Log(commandArray[i] + " : this is command Array");
+            UnityEngine.Debug.Log(commandArray.Length + " : this is command Array Length");
+            UnityEngine.Debug.Log(commandArray[i] + " : this is command Array");
         }
         return null;
     }

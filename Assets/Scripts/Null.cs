@@ -5,7 +5,7 @@ using UnityEngine;
 public class Null : MonoBehaviour
 {
     //NULL is a charasmatic Lady bug who is the master of ceremony for the stream marble games!
-    [SerializeField] GameController gameController;
+    [SerializeField] GameController Controller;
     void Start()
     {
         gameObject.SetActive(false);
@@ -20,7 +20,7 @@ public class Null : MonoBehaviour
     IEnumerator StartingDialogue()
     {
         yield return new WaitForSeconds(10);
-        gameController.TriggerGame();
+        Controller.TriggerGame();
     }
     public void HideCharacter()
     {
